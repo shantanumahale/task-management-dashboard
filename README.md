@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# Task Management Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React + TypeScript task management app with Redux state management, dark mode, and full CRUD support.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+- React 19 + TypeScript
+- Redux Toolkit (state management)
+- React Router v6 (routing)
+- Tailwind CSS v3 (styling, dark mode)
+- Jest + React Testing Library (unit tests)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js 16+
+- npm
 
-### `npm test`
+### Install dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
+### Run the development server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Opens [http://localhost:3000](http://localhost:3000) in the browser. The page reloads on file changes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Build for production
 
-### `npm run eject`
+```bash
+npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Outputs an optimized production bundle to the `build/` folder.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Running the Unit Test Suite
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Run all tests (single pass, CI mode)
 
-## Learn More
+```bash
+CI=true npm test
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Runs the full test suite once and exits with a pass/fail code. Use this in CI pipelines or to get a final summary without the interactive watcher.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Run all tests in watch mode (development)
 
-### Code Splitting
+```bash
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Launches Jest in interactive watch mode. Tests re-run automatically on file changes. Press `a` to run all tests, `q` to quit.
 
-### Analyzing the Bundle Size
+### Run a single test file
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+CI=true npm test -- --testPathPattern="TaskList"
+```
 
-### Making a Progressive Web App
+Replace `TaskList` with any filename or pattern to target a specific file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Run tests matching a specific test name
 
-### Advanced Configuration
+```bash
+CI=true npm test -- --testNamePattern="filters tasks by title"
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### View coverage report
 
-### Deployment
+```bash
+CI=true npm test -- --coverage
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Generates an HTML coverage report in `coverage/lcov-report/index.html`.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Test File Overview
+
+| File | What it covers |
+|---|---|
+| `src/App.test.js` | App smoke tests (root route renders) |
+| `src/features/tasks/tasksSlice.test.ts` | Redux slice — all actions and state transitions |
+| `src/components/TaskCard.test.tsx` | Task row rendering, edit/delete dispatch, status update |
+| `src/components/TaskForm.test.tsx` | Edit side panel — load, save, cancel, validation |
+| `src/components/TaskFormModal.test.tsx` | Create modal — open, save, cancel, keyboard close |
+| `src/components/TaskList.test.tsx` | Search, sort by date, filter by status |
+| `src/components/SummaryCard.test.tsx` | Label/count rendering, click handler, gradient class |
+| `src/components/StatusSelect.test.tsx` | Dropdown open/close, option selection, ARIA attributes |
+| `src/components/DeleteModal.test.tsx` | Confirm/cancel delete, Escape key, focus management |
+| `src/components/ThemeToggle.test.tsx` | Light/dark toggle, localStorage persistence |
+| `src/pages/Dashboard.test.tsx` | Dashboard layout, navigation, form open/close |
+| `src/pages/StatusPage.test.tsx` | Status route filtering, back navigation, summary cards |
